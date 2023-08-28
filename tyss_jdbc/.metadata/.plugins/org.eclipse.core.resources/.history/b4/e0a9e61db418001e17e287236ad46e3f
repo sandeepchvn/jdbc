@@ -1,0 +1,71 @@
+package com.tyss;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ProductDao {
+	public  Connection getConnection() {
+		Connection con = null;
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/food?user=postgres&password=root");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return con;
+	}
+
+	public void saveProduct(Product product) {
+		// Save Product
+		Connection con = getConnection();
+		try {
+			CallableStatement cs=con.prepareCall("call save_product(?,?,?,?,?,?)");
+			cs.setInt(1, product.getId());
+			cs.setString(2, product.getName());
+			cs.setString(3, product.getType());
+			cs.setString(4, product.getDescription());
+			cs.setString(5, product.getAvailability());
+			cs.setDouble(6, product.getPrice());
+			cs.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public Product findProductById(int id) {
+		// Find Product By Id And return the product if Exist
+
+		return null;
+	}
+
+	public Product updateProductById(Product product) {
+		// Update Product By Id And return the Updated product
+		Connection con = getConnection();
+		try {
+			CallableStatement cs=con.prepareCall("call update_product(10,'biriyani','ff','ff','dd',83)");
+//			cs.setInt(1, product.getId());
+//			cs.setString(2, product.getName());
+//			cs.setString(3, product.getType());
+//			cs.setString(4, product.getDescription());
+//			cs.setString(5, product.getAvailability());
+//			cs.setDouble(6, product.getPrice());
+			cs.execute();
+			System.out.println("updated");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return product;
+	}
+
+	public void removeProductById(int id) {
+		// Find Product By Id And Remove the product if Exist
+
+	}
+
+}

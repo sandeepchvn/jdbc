@@ -1,0 +1,122 @@
+package com.tyss;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Types;
+
+
+public class User_dao {
+
+	public Connection getConnection() {
+		Connection con = null;
+		try {
+			Class.forName("org.postgresql.Driver");
+			con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/school?user=postgres&password=root");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return con;
+
+	}
+
+	public void saveUser(UserEntity u) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:postgresql://localhost:5432/school?user=postgres&password=root");
+			CallableStatement cstm = con.prepareCall("call save_user_record(?,?,?,?)");
+			cstm.setInt(1, u.getId());
+			cstm.setString(2, u.getName());
+			cstm.setLong(3, u.getPhone());
+		//	EncryptingPassword.encrypt(data, secretKey)
+			cstm.setString(4, u.getPassword());
+			cstm.execute();
+			System.out.println("record inserted");
+			// con.clearWarnings();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateUser(UserEntity u) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:postgresql://localhost:5432/school?user=postgres&password=root");
+			CallableStatement cstm = con.prepareCall("call update_user_record(?,?)");
+			cstm.setInt(1, u.getId());
+			
+			cstm.setString(2, u.getPassword());
+			cstm.execute();
+			System.out.println("password updated successfully");
+			con.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void fetchUser(UserEntity u) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:postgresql://localhost:5432/school?user=postgres&password=root");
+
+			// String sql = "select * from user1 where id=?";// select * from \"user\" where
+			// id=?";
+			// pstm = con.prepareStatement(sql);
+			CallableStatement cstm = con.prepareCall("call fetch_user_record(?,?,?,?)");
+			cstm.setInt(1, u.getId());
+			// pstm.setInt(1, u.getId());
+			cstm.registerOutParameter(1, Types.INTEGER);
+			cstm.registerOutParameter(2, Types.VARCHAR);
+			cstm.registerOutParameter(3, Types.BIGINT);
+			cstm.registerOutParameter(4, Types.VARCHAR);
+			// ResultSet rs = cstm.executeQuery();
+			cstm.execute();
+
+			// System.out.println("fetch executed");
+			//UserEntity entity = new UserEntity();
+			System.out.println("id-" + cstm.getInt(1));// column number
+			System.out.println("name-" + cstm.getString(2));
+			System.out.println("phone-" + cstm.getLong(3));
+			System.out.println("password-" + cstm.getString(4));
+			System.out.println("--------------------------------");
+			int id = cstm.getInt(1);
+			String name = cstm.getString(2);
+			
+			
+			con.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteUser(UserEntity u) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:postgresql://localhost:5432/school?user=postgres&password=root");
+			CallableStatement cstm = con.prepareCall("call delete_user_record(?)");
+			cstm.setInt(1, u.getId());
+			cstm.executeUpdate();
+			System.out.println("record deleted successfully");
+			con.close();
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}

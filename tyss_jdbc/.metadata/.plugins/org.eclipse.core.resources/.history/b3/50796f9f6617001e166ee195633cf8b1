@@ -1,0 +1,16 @@
+package com.tyss;
+
+import java.util.Scanner;
+
+public class Usercontroller {
+public static void main(String[] args) {
+	
+	Scanner sc = new Scanner(System.in);
+	System.out.println("enter id, name, phone, password");
+	UserEntity u=new UserEntity();
+	int id=sc.nextInt();
+	u.setId(1)=id;
+	String name=u.setName("xyz");
+	Long phone=u.setPhone(87646);
+}
+}

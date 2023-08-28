@@ -1,0 +1,25 @@
+package com.tyss;
+
+
+public class ProductController {
+
+	public static void main(String[] args) {
+		ProductDao dao=new ProductDao();
+		Product product= new Product();
+		product.setId(10);
+		product.setName("milk");
+		product.setType("veg");
+		product.setDescription("low cost");
+		product.setAvailability("YES");
+		product.setPrice(15);
+		//dao.saveProduct(product);
+		dao.updateProductById(product);
+		System.out.println("saved product");
+//		private String name;
+//		private String type;
+//		private String description;
+//		private String availability;
+//		private double price;
+	}
+	
+}

@@ -1,0 +1,54 @@
+package com.tyss;
+
+import java.util.Scanner;
+
+public class ProductController {
+
+	public static void main(String[] args) {
+		ProductDao dao = new ProductDao();
+		Product product = new Product();
+		Scanner sc = new Scanner(System.in);
+		int id = sc.nextInt();
+		String name = sc.next();
+		String type = sc.next();
+		String des = sc.next();
+		String al = sc.next();
+		double price = sc.nextDouble();
+		int key = sc.nextInt();
+		switch (key) {
+		case 1:
+
+			break;
+		case 2:
+
+			break;
+		case 2:
+
+			break;
+		case 3:
+
+			break;
+
+		default:
+			break;
+		}
+//		product.setId(1);
+//		product.setName("biryani");
+//		product.setType("non veg");
+//		product.setDescription("low cost");
+//		product.setAvailability("YES");
+//		product.setPrice(15);
+		// dao.saveProduct(product);
+		// dao.updateProductById(product);
+		// System.out.println("saved product");
+		// dao.removeProductById(883);
+		product = dao.findProductById(1);
+		System.out.println(product.getId());
+		System.out.println(product.getName());
+		System.out.println(product.getType());
+		System.out.println(product.getDescription());
+		System.out.println(product.getAvailability());
+		System.out.println(product.getPrice());
+	}
+
+}

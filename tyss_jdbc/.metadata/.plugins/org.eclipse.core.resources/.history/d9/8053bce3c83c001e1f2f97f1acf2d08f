@@ -1,0 +1,28 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class DemoBatch {
+	public static void main(String[] args) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/shop?user=postgres&password=root");
+			Statement statement = connection.createStatement();
+
+			statement.addBatch("update product set name='laptop2' where id=5");
+			statement.addBatch("insert into product values(102,'xyz',22)");
+			statement.addBatch("delete from product where id=101");
+			
+			int[] n=statement.executeBatch();
+			for(int i:n) {
+				System.out.println(i);
+			}
+			System.out.println(n);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}

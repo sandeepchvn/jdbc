@@ -1,0 +1,13 @@
+import java.util.Scanner;
+
+public class Test {
+public static void main(String[] args) {
+	String a="y";
+	
+	Scanner sc= new Scanner(System.in);
+	System.out.println("enter string");
+	String b=sc.next();
+	boolean r= a==b;
+	System.out.println(r);
+}
+}

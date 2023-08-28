@@ -1,0 +1,13 @@
+package com.tyss;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class ReadUserByProcedures {
+
+	public static void main(String[] args) {
+		Class.forName("");
+		Connection con = DriverManager.getConnection(url);
+	}
+
+}

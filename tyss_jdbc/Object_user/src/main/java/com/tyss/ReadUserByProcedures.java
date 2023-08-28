@@ -1,0 +1,31 @@
+package com.tyss;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class ReadUserByProcedures {
+
+	public static void main(String[] args) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:postgresql://localhost:5432/school?user=postgres&password=root");
+			String query = "call fetch_user_records(?)";
+			CallableStatement callStatement = con.prepareCall(query);
+			callStatement.setInt(1, 1);
+			ResultSet res = callStatement.executeQuery();
+			if (res.next()) {
+				System.out.println(res.getInt(1));
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}

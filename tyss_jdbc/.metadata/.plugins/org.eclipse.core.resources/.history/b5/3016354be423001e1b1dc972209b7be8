@@ -1,0 +1,8 @@
+import com.tyss.JarDemo;
+
+public class Test {
+	public static void main(String[] args) {
+		JarDemo d=new JarDemo();
+		d.start();
+	}
+}

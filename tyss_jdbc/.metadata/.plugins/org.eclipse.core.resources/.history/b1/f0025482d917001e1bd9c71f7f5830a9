@@ -1,0 +1,8 @@
+package com.tyss;
+
+public class ProductDao {
+
+	public void saveProduct(Product product) {
+		// Save Product
+	}
+}

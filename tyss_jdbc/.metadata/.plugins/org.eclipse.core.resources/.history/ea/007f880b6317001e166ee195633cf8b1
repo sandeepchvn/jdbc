@@ -1,0 +1,29 @@
+package com.tyss;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class User__dao {
+	public void saveUser(int id, String name, long phone, String password) {
+		try {
+			Class.forName("org.postgresql.Driver");
+			Connection con = DriverManager
+					.getConnection("jdbc:postgresql://localhost:5432/user_db?user=postgres&password=root");
+			String sql = "insert into user1 values(?,?,?,?)";
+			PreparedStatement pstm = con.prepareStatement(sql);
+			pstm.setInt(1, id);
+			pstm.setString(2, name);
+			pstm.setLong(3, phone);
+			pstm.setString(4, password);
+			pstm.executeUpdate();
+			System.out.println("record inserted");
+			con.clearWarnings();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+}

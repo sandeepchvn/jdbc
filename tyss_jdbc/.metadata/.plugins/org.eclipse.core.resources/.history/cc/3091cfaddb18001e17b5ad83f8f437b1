@@ -1,0 +1,14 @@
+package com.tyss;
+
+public class LoadingClassDemo {
+public static void main(String[] args) {
+	try {
+		Class.forName("com.tyss.Girl");
+		
+		System.out.println("loaded successfully");
+		
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	}
+}
+}

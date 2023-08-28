@@ -1,0 +1,42 @@
+package com.tyss.connectionPool;
+
+import java.net.CookieHandler;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+public class Demo_pool {
+
+	private static int pool_size = 5;
+	private static ArrayList<Connection> connections;
+	static {
+		try {
+			Class.forName("org.postgresql.Driver");
+			for (int i = 0; i <= pool_size; i++) {
+				Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/demo");
+				connections.add(con);
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static Connection giveConnectionObject() throws SQLException {
+		if(connections.size() > 0) {
+			return connections.remove(0);
+		}
+		Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/demo");
+		return con;
+	}
+	public static void receiveConnection(Connection con) throws SQLException {
+		
+		if(connections.size() < pool_size) {
+			connections.add(con);
+		}
+		else {
+			con.close();
+		}
+	}
+}

@@ -1,0 +1,120 @@
+package com.tyss;
+
+import java.util.Scanner;
+
+public class ProductController {
+
+	public static void main(String[] args) {
+		ProductDao dao = new ProductDao();
+		Product product = new Product();
+		Scanner sc = new Scanner(System.in);
+		int id ;
+		String name;
+		String type ;
+		String des;
+		String al ;
+		double price ;
+		System.out.println("enter 1 to save");
+		System.out.println("enter 2 to update");
+		System.out.println("enter 3 to delete");
+		System.out.println("enter 4 to fetch");
+		int key = sc.nextInt();
+		switch (key) {
+		case 1:
+		{
+			System.out.println("enter product id,name,type,description,Availability,price");
+			id = sc.nextInt();
+			 name = sc.next();
+			 type = sc.next();
+			 des = sc.next();
+			 al = sc.next();
+			price = sc.nextDouble();
+			Product p=dao.findProductById(id);
+			if(p.getId()!=id) {
+				product.setId(id);
+				product.setName(name);
+				product.setType(type);
+				product.setDescription(des);
+				product.setAvailability(al);
+				product.setPrice(price);
+				dao.saveProduct(product);
+			}
+			else
+				System.err.println("entered id already exist, please enter different id");
+			break;
+		}
+		case 2:
+		{
+			System.out.println("enter product the id to Update");
+			id = sc.nextInt();
+			Product p=dao.findProductById(id);
+			if(p.getId()!=id) {
+				System.err.println("entered id not exist");
+			}
+			else {
+				System.out.println("enter product name,type,description,Availability,price");
+				 name = sc.next();
+				 type = sc.next();
+				 des = sc.next();
+				 al = sc.next();
+				price = sc.nextDouble();
+				product.setName(name);
+				product.setType(type);
+				product.setDescription(des);
+				product.setAvailability(al);
+				product.setPrice(price);
+				dao.saveProduct(product);
+			  dao.updateProductById(p);
+			}
+			break;
+		}
+		case 3:
+		{
+			System.out.println("enter the id to delete the product ");
+			id = sc.nextInt();
+			Product p=dao.findProductById(id);
+			if(p.getId()==id)
+			{
+				dao.removeProductById(id);
+				System.out.println("product deleted");
+			}
+			else
+				System.err.println("entered product id is not presenr");
+			break;
+		}
+		case 4:
+		{
+			System.out.println("enter the id to fetch the product");
+			id = sc.nextInt();
+			product = dao.findProductById(id);
+			System.out.println(product.getId());
+			System.out.println(product.getName());
+			System.out.println(product.getType());
+			System.out.println(product.getDescription());
+			System.out.println(product.getAvailability());
+			System.out.println(product.getPrice());
+			break;
+		}
+		default:
+			break;
+		}
+//		product.setId(1);
+//		product.setName("biryani");
+//		product.setType("non veg");
+//		product.setDescription("low cost");
+//		product.setAvailability("YES");
+//		product.setPrice(15);
+		// dao.saveProduct(product);
+		// dao.updateProductById(product);
+		// System.out.println("saved product");
+		// dao.removeProductById(883);
+//		product = dao.findProductById(1);
+//		System.out.println(product.getId());
+//		System.out.println(product.getName());
+//		System.out.println(product.getType());
+//		System.out.println(product.getDescription());
+//		System.out.println(product.getAvailability());
+//		System.out.println(product.getPrice());
+	}
+
+}

@@ -1,0 +1,27 @@
+package com.tyss;
+
+import java.util.Scanner;
+
+public class Usercontroller {
+public static void main(String[] args) {
+	
+	Scanner sc = new Scanner(System.in);
+	System.out.println("enter id, name, phone, password");
+	UserEntity u=new UserEntity();
+	User_dao dao= new User_dao();
+	u.setId(1);
+	u.setName("xyz");
+	u.setPhone(8764);
+	u.setPassword("420");
+//	switch(1) {
+//	case 1:
+//		//dao.saveUser(u);
+//	case 2:
+//		
+//	}
+	
+	//dao.updateUser(u);
+	//dao.fetchUser(u);
+	dao.deleteUser(u);
+}
+}

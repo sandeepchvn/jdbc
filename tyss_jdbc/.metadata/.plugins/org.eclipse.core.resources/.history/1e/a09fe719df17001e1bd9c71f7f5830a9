@@ -1,0 +1,24 @@
+package com.tyss;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class ProductController {
+
+	public static void main(String[] args) {
+		
+	}
+	public Connection getConnection() {
+		Connection con=null;
+		try {
+			Class.forName("org.postgresql.Driver");
+			 con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/food?user=postgres&password=root");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return con;
+	}
+}
